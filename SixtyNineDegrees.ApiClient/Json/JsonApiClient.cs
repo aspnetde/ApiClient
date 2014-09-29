@@ -13,6 +13,12 @@ namespace SixtyNineDegrees.ApiClient.Json
         private readonly CancellationToken _requestCancellationToken;
         private readonly HttpClient _httpClient;
 
+        public JsonApiClient(string apiRootUri)
+            : this(new Uri(apiRootUri))
+        {
+            // Nothing to do here
+        }
+
         public JsonApiClient(Uri apiRoot)
             : this(apiRoot, CancellationToken.None)
         {
