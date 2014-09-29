@@ -20,9 +20,9 @@ namespace SixtyNineDegrees.ApiClient.Json.FluentSyntax
             _requestCancellationToken = requestCancellationToken;
         }
 
-        public IFluentStep2 To(string relativeUriFormat, params object[] parameters)
+        public IFluentStep2 To(string endpointFormat, params object[] parameters)
         {
-            string requestUri = string.Format(relativeUriFormat, parameters);
+            string requestUri = string.Format(endpointFormat, parameters);
 
             var message = new HttpRequestMessage
             {

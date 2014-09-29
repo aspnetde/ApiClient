@@ -10,8 +10,8 @@ namespace SixtyNineDegrees.ApiClient.Json
 {
     public class JsonApiClient
     {
-        private readonly CancellationToken _requestCancellationToken;
         private readonly HttpClient _httpClient;
+        private readonly CancellationToken _requestCancellationToken;
 
         public JsonApiClient(string apiRootUri)
             : this(new Uri(apiRootUri))
@@ -22,7 +22,7 @@ namespace SixtyNineDegrees.ApiClient.Json
         public JsonApiClient(Uri apiRoot)
             : this(apiRoot, CancellationToken.None)
         {
-
+            // Nothing to do here
         }
 
         public JsonApiClient(Uri apiRoot, CancellationToken requestCancellationToken)
@@ -31,20 +31,20 @@ namespace SixtyNineDegrees.ApiClient.Json
             _requestCancellationToken = requestCancellationToken;
         }
 
-        public IFluentStep2 Get(string relativeUri)
+        public IFluentStep2 Get(string endpoint)
         {
-            return new FluentApiStep2(() => _httpClient.GetAsync(relativeUri, _requestCancellationToken));
+            return new FluentApiStep2(() => _httpClient.GetAsync(endpoint, _requestCancellationToken));
         }
 
-        public Task<T> Get<T>(string relativeUriFormat, params object[] parameters)
+        public Task<T> Get<T>(string endpointFormat, params object[] parameters)
         {
-            return new FluentApiStep2(() => _httpClient.GetAsync(string.Format(relativeUriFormat, parameters), _requestCancellationToken))
+            return new FluentApiStep2(() => _httpClient.GetAsync(string.Format(endpointFormat, parameters), _requestCancellationToken))
                 .AndRespondWith<T>();
         }
 
-        public IFluentStep2 Delete(string relativeUriFormat, params object[] parameters)
+        public IFluentStep2 Delete(string endpointFormat, params object[] parameters)
         {
-            return new FluentApiStep2(() => _httpClient.DeleteAsync(string.Format(relativeUriFormat, parameters), _requestCancellationToken));
+            return new FluentApiStep2(() => _httpClient.DeleteAsync(string.Format(endpointFormat, parameters), _requestCancellationToken));
         }
 
         public IFluentStep1 Post()

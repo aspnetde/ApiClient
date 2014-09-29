@@ -23,13 +23,13 @@ namespace SixtyNineDegrees.ApiClient.Json.FluentSyntax
             _requestCancellationToken = requestCancellationToken;
         }
 
-        public IFluentStep2 To(string relativeUriFormat, params object[] parameters)
+        public IFluentStep2 To(string endpointFormat, params object[] parameters)
         {
-            string relativeUri = string.Format(relativeUriFormat, parameters);
+            string endpoint = string.Format(endpointFormat, parameters);
             HttpContent jsonContent = GetSerializedJsonContent();
             var httpMethod = GetHttpMethod();
 
-            return new FluentApiStep2(() => httpMethod(relativeUri, jsonContent, _requestCancellationToken));
+            return new FluentApiStep2(() => httpMethod(endpoint, jsonContent, _requestCancellationToken));
         }
 
         private Func<string, HttpContent, CancellationToken, Task<HttpResponseMessage>> GetHttpMethod()
