@@ -2,6 +2,6 @@
 {
     public interface IFluentStep1
     {
-        IFluentStep2 To(string endpointFormat, params object[] parameters);
+        IFluentStep2 To(string endpoint, params object[] parameters);
     }
 }
